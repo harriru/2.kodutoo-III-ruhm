@@ -188,20 +188,20 @@
 		
 		<form action="login.php" method="post">
 		<input name="email"e type="email" placeholder = "email"> <?php echo $email_error;  ?><br><br>
-		<input name="password" type="password" placeholder = "password"> <?php echo $password_error;  ?><br><br>
+		<input name="password" type="password" placeholder = "parool"> <?php echo $password_error;  ?><br><br>
 		<input type="submit" value="login" name="login">
 		</form>
 
 	<h2>Registreeru</h2>
 
 		<form action="login.php" method="POST"><br><br>
-		<input name="name1" type="text" placeholder="eesname" /><?php echo $name1_error;  ?><br><br>
-		<input name="name2" type="text" placeholder="perekonna name" /><?php echo $name2_error;  ?><br><br>
-		<input name="username" type="text" placeholder="username" /><?php echo $username_error;  ?><br><br>
+		<input name="name1" type="text" placeholder="eesnimi" /><?php echo $name1_error;  ?><br><br>
+		<input name="name2" type="text" placeholder="perekonna nimi" /><?php echo $name2_error;  ?><br><br>
+		<input name="username" type="text" placeholder="kasutajanimi" /><?php echo $username_error;  ?><br><br>
 		<input name="email1" type="email" placeholder="Email" /><?php echo $ematch_error;  ?><?php echo $email1_error;  ?><br><br>
 		<input name="email2" type="email" placeholder="uuesti Email" /><?php echo $email2_error;  ?><br><br>
-		<input name="password1" type="password" placeholder="password" /><?php echo $pmatch_error;  ?><?php echo $password1_error;  ?><br><br>
-		<input name="password2" type="password" placeholder="uuesti password" /><?php echo $password2_error;  ?><br><br>
+		<input name="password1" type="password" placeholder="parool" /><?php echo $pmatch_error;  ?><?php echo $password1_error;  ?><br><br>
+		<input name="password2" type="password" placeholder="uuesti parool" /><?php echo $password2_error;  ?><br><br>
 		<input type="submit" value="Registreeri" name="registreeru" /><br><br>
 
 
