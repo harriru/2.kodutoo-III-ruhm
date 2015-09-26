@@ -152,7 +152,7 @@
 			echo "Registreerisid kasutaja! username on ".$username." ja password on Õige  ja räsi on ".$hash;
 			
 			//Salvestame AB'i
-			$stmt = $mysqli->prepare("INSERT INTO user_reg (eesname, perekonnaname, username, email, password) VALUES (?,?,?,?,?)");
+			$stmt = $mysqli->prepare("INSERT INTO user_reg (firstname, lastname, username, email, password) VALUES (?,?,?,?,?)");
 			//echo $mysqli->error;
 			//echo $stmt->error;
 			
