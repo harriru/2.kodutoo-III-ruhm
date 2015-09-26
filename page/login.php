@@ -14,23 +14,23 @@
 	$password = "";
 
 
-	$nimi1_error = "";
-	$nimi2_error = "";
-	$kasutajanimi_error = "";
+	$name1_error = "";
+	$name2_error = "";
+	$username_error = "";
 	$email1_error = "";
 	$email2_error = "";
-	$parool1_error = "";
-	$parool2_error = "";
+	$password1_error = "";
+	$password2_error = "";
 	$pmatch_error  = "";
 	$ematch_error  = "";
 
-	$nimi1 = "";
-	$nimi2 = "";
-	$kasutajanimi = "";
+	$name1 = "";
+	$name2 = "";
+	$username = "";
 	$email1 = "";
 	$email2 = "";
-	$parool1 = "";
-	$parool2 = "";
+	$password1 = "";
+	$password2 = "";
 
 
 	if($_SERVER["REQUEST_METHOD"] == "POST") {		
@@ -46,14 +46,10 @@
 			if (empty($_POST["password"]) )  {
 				$password_error = "see väli on kohustuslik";
 			}else{
-
-					//siis pole parool tyhi
-				if(strlen($_POST["password"]) < 8)	{
-					$password_error = "Peab olema vähemalt 8 tähemärki pikk!";
-				}
+				$email = test_input($_POST["email"]);
 			}	
 				if($email_error == "" && $password_error ==""){
-				echo "Võib sisse logida! Kasutajanimi on ".$kasutajanimi." ja parool on ".$password;
+				// echo "Loggiti sisse! username on ".$username." ja password on ".$password;
 			
 				$hash = hash("sha512", $password);
 				
@@ -67,10 +63,10 @@
 				//Kontrollin kas tulemusi leiti
 				if($stmt->fetch()){
 					// ab'i oli midagi
-					echo "Email ja parool õiged, kasutaja id=".$id_from_db;
+					echo "Loggiti sisse !! Email ".$email." ja password õiged, kasutaja id=".$id_from_db;
 				}else{
 					// ei leidnud
-					echo "Wrong credentials!";
+					echo "Vale username või password!";
 				}
 				
 				$stmt->close();
@@ -97,20 +93,20 @@
 		if (isset($_POST["registreeru"])) {
 			// echo "Registreerumine ";
 
-			if (empty($_POST["nimi1"]) )  {
-				$nimi1_error = "see väli on kohustuslik";
+			if (empty($_POST["name1"]) )  {
+				$name1_error = "see väli on kohustuslik";
 			}else{
-				$nimi1 = test_input($_POST["nimi1"]);
+				$name1 = test_input($_POST["name1"]);
 			}
-			if (empty($_POST["nimi2"]) )  {
-				$nimi2_error = "see väli on kohustuslik";
+			if (empty($_POST["name2"]) )  {
+				$name2_error = "see väli on kohustuslik";
 			}else{
-				$nimi2 = test_input($_POST["nimi2"]);
+				$name2 = test_input($_POST["name2"]);
 			}
-			if (empty($_POST["kasutajanimi"]) )  {
-				$kasutajanimi_error = "see väli on kohustuslik";
+			if (empty($_POST["username"]) )  {
+				$username_error = "see väli on kohustuslik";
 			}else{
-				$kasutajanimi = test_input($_POST["kasutajanimi"]);
+				$username = test_input($_POST["username"]);
 			}
 			if (empty($_POST["email1"]) )  {
 				$email1_error = "see väli on kohustuslik";
@@ -126,43 +122,43 @@
 			}else{
 				$email2 = test_input($_POST["email2"]);
 			}
-			if ($_POST['parool1']!= $_POST['parool2'])
+			if ($_POST['password1']!= $_POST['password2'])
 			 {
-			     $pmatch_error = "Paroolid ei ühtinud!!!!! ";
+			     $pmatch_error = "passwordid ei ühtinud!!!!! ";
 			 }
-			if (empty($_POST["parool1"]) )  {
-				$parool1_error = "see väli on kohustuslik";
+			if (empty($_POST["password1"]) )  {
+				$password1_error = "see väli on kohustuslik";
 			} 		
-			if (empty($_POST["parool2"]) )  {
-				$parool2_error = "see väli on kohustuslik";
+			if (empty($_POST["password2"]) )  {
+				$password2_error = "see väli on kohustuslik";
 			} else {
-				//siis pole parool tyhi
-				if(strlen($_POST["parool2"]) < 8)	{
-					$parool2_error = "Peab olema vähemalt 8 tähemärki pikk!";
+				//siis pole password tyhi
+				if(strlen($_POST["password2"]) < 8)	{
+					$password2_error = "Peab olema vähemalt 8 tähemärki pikk!";
 				}
-				if(strlen($_POST["parool1"]) < 8)	{
-					$parool1_error = "Peab olema vähemalt 8 tähemärki pikk!";
+				if(strlen($_POST["password1"]) < 8)	{
+					$password1_error = "Peab olema vähemalt 8 tähemärki pikk!";
 
 
 				}
 			}
-							if(	$email1_error == "" && $email2_error == "" && $kasutajanimi_error == "" && $parool1_error == "" && $parool2_error == "" && $nimi1_error == "" && $nimi2_error == "" && $pmatch_error == ""&& $ematch_error == ""){
+							if(	$email1_error == "" && $email2_error == "" && $username_error == "" && $password1_error == "" && $password2_error == "" && $name1_error == "" && $name2_error == "" && $pmatch_error == ""&& $ematch_error == ""){
 			
-			// räsi paroolist, mille salvestame ab'i
-			$hash = hash("sha512", $parool1);
+			// räsi passwordist, mille salvestame ab'i
+			$hash = hash("sha512", $password1);
 
 			
 			
-			echo "Registreerisid kasutaja! Kasutajanimi on ".$kasutajanimi." ja parool on Õige  ja räsi on ".$hash;
+			echo "Registreerisid kasutaja! username on ".$username." ja password on Õige  ja räsi on ".$hash;
 			
 			//Salvestame AB'i
-			$stmt = $mysqli->prepare("INSERT INTO user_reg (eesnimi, perekonnanimi, kasutajanimi, email, password) VALUES (?,?,?,?,?)");
+			$stmt = $mysqli->prepare("INSERT INTO user_reg (eesname, perekonnaname, username, email, password) VALUES (?,?,?,?,?)");
 			//echo $mysqli->error;
 			//echo $stmt->error;
 			
 			
 			// asendame ? märgid, ss - s on string email, s on string password
-			$stmt->bind_param("sssss", $nimi1, $nimi2, $kasutajanimi, $email1, $hash);
+			$stmt->bind_param("sssss", $name1, $name2, $username, $email1, $hash);
 			$stmt->execute();
 			$stmt->close();
 		}	
@@ -192,20 +188,20 @@
 		
 		<form action="login.php" method="post">
 		<input name="email"e type="email" placeholder = "email"> <?php echo $email_error;  ?><br><br>
-		<input name="password" type="password" placeholder = "parool"> <?php echo $password_error;  ?><br><br>
+		<input name="password" type="password" placeholder = "password"> <?php echo $password_error;  ?><br><br>
 		<input type="submit" value="login" name="login">
 		</form>
 
 	<h2>Registreeru</h2>
 
 		<form action="login.php" method="POST"><br><br>
-		<input name="nimi1" type="text" placeholder="eesnimi" /><?php echo $nimi1_error;  ?><br><br>
-		<input name="nimi2" type="text" placeholder="perekonna nimi" /><?php echo $nimi2_error;  ?><br><br>
-		<input name="kasutajanimi" type="text" placeholder="kasutajanimi" /><?php echo $kasutajanimi_error;  ?><br><br>
+		<input name="name1" type="text" placeholder="eesname" /><?php echo $name1_error;  ?><br><br>
+		<input name="name2" type="text" placeholder="perekonna name" /><?php echo $name2_error;  ?><br><br>
+		<input name="username" type="text" placeholder="username" /><?php echo $username_error;  ?><br><br>
 		<input name="email1" type="email" placeholder="Email" /><?php echo $ematch_error;  ?><?php echo $email1_error;  ?><br><br>
 		<input name="email2" type="email" placeholder="uuesti Email" /><?php echo $email2_error;  ?><br><br>
-		<input name="parool1" type="password" placeholder="Parool" /><?php echo $pmatch_error;  ?><?php echo $parool1_error;  ?><br><br>
-		<input name="parool2" type="password" placeholder="uuesti parool" /><?php echo $parool2_error;  ?><br><br>
+		<input name="password1" type="password" placeholder="password" /><?php echo $pmatch_error;  ?><?php echo $password1_error;  ?><br><br>
+		<input name="password2" type="password" placeholder="uuesti password" /><?php echo $password2_error;  ?><br><br>
 		<input type="submit" value="Registreeri" name="registreeru" /><br><br>
 
 
